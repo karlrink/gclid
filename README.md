@@ -8,11 +8,11 @@
 ##################################################################################################
 # install/setup
 
-requires python-mysql.connector
+requires python-mysql.connector    
 
-current system has python 2...
-python-mysql.connector - pure Python implementation of MySQL Client/Server protocol    
-python3-mysql.connector - pure Python implementation of MySQL Client/Server protocol (Python3)
+current system has python 2...    
+python-mysql.connector - pure Python implementation of MySQL Client/Server protocol        
+python3-mysql.connector - pure Python implementation of MySQL Client/Server protocol (Python3)    
 
 debian install:
 ```

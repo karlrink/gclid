@@ -1,22 +1,8 @@
 #!/usr/bin/env python
 
 import sys
-import os
-
-dbConf = 'db.conf'
-dbUser = dbPass = None
-mysql_socket = '/var/run/mysqld/mysqld.sock'
-
-try:
-    with open(dbConf) as Conf:
-        for line in Conf:
-            if line.startswith("define('dbUser'"):
-                dbUser = line.split(',')[1].strip('\'').split('\'')[0]
-            if line.startswith("define('dbPass'"):
-                dbPass = line.split(',')[1].strip('\'').split('\'')[0]
-except Exception as e:
-    print(e)
-    sys.exit(1)
+sys.dont_write_bytecode = True
+#import os
 
 try:
     import mysql.connector
@@ -28,10 +14,19 @@ except ImportError as e:
     sys.exit(1)
 
 try:
+    import config
+except ImportError as e:
+    print('Missing config.py: ' + str(e))
+    sys.exit(1)
+dbSocket = config.gclid['dbSocket']
+dbUser = config.gclid['dbUser']
+dbPass = config.gclid['dbPass']
+
+try:
     config = {
         'user': dbUser,
         'password': dbPass,
-        'unix_socket': mysql_socket,
+        'unix_socket': dbSocket,
         'database': '',
         'raise_on_warnings': True,
         'auth_plugin': 'mysql_native_password',

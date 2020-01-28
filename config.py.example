@@ -1,0 +1,7 @@
+
+gclid = dict(
+  dbUser = 'gclid',
+  dbPass = 'XXXXXXXX',
+  dbSocket = '/var/run/mysqld/mysqld.sock'
+)
+
