@@ -1,8 +1,5 @@
 # gclid
-
 # Upload Offline Customer Conversions To Google Using GCLID 
-
-
 # https://nationsinfocorp.atlassian.net/browse/ENG-2275
 
 ##################################################################################################
@@ -57,6 +54,40 @@ example...
 Cj0KCQiAiNnuBRD3ARIsAM8KmlsWutPbDFd5lmMUtyDOuQrEv5IlJKgnSFqqV1qu4kTizFf54XtBynEaArErEALw_wcB,15-day ELTV adjustment,2012-08-14 13:00:00 America/Los_Angeles,partner.vertical_type,USD
 ```
 
+##################################################################################################
 
+1.
+```
+$ ./dump.gclid.py >gclid-`date --iso`.csv
+```
 
+2.
+```
+$ ./upload.gclid.py gclid-`date --iso`.csv
+```
+
+##################################################################################################
+# aws setup
+
+# install aws cli
+```
+sudo apt install awscli
+```
+
+# create s3 bucket: ninfo-gclid (one-time-setup)
+```
+aws s3 mb s3://ninfo-gclid
+```
+
+# and configure the credentials
+```
+aws configure
+```
+
+# upload csv
+```
+$ ./upload.gclid.py gclid-2020-01-28.csv 
+upload: ./gclid-2020-01-28.csv to s3://ninfo-gclid/gclid-2020-01-28.csv
+$
+```
 
