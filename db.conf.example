@@ -1,0 +1,2 @@
+define('dbUser','XXXXXXXX')
+define('dbPass','XXXXXXXX')
