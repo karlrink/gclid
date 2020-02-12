@@ -69,6 +69,7 @@ cnx.close()
 #for row in get_results:
 #    print(row)
 
+print("Google Click ID,Conversion Name,Conversion Time,Conversion Value,Conversion Currency")
 for (gclid, order_date) in get_results:
     #print(row)
     print("{},15-day ELTV adjustment,{:%Y-%m-%d %H:%M:%S} America/Los_Angeles,partner.vertical_type,USD".format(gclid, order_date))
