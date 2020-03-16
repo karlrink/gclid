@@ -45,7 +45,7 @@ sql += "FROM main.tbl_customer INNER JOIN nic_billing.order "
 sql += "ON nic_billing.order.id_customer = main.tbl_customer.CUSTOMER_ID "
 sql += "WHERE main.tbl_customer.gclid IS NOT NULL "
 sql += "AND nic_billing.order.order_status = 'success' "
-sql += "AND nic_billing.order.order_date >= (CURDATE() - INTERVAL 14 DAY) "
+sql += "AND nic_billing.order.order_date >= (CURDATE() - INTERVAL 31 DAY) "
 sql += "ORDER BY nic_billing.order.order_date ASC "
 #sql += "LIMIT 5"
 
