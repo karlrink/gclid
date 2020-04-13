@@ -91,3 +91,13 @@ upload: ./gclid-2020-01-28.csv to s3://ninfo-gclid/gclid-2020-01-28.csv
 $
 ```
 
+
+```
+mysql> create user 'gclid'@'localhost' identified by 'XXXXXXXXXXXX';
+mysql> grant select on main.* to 'gclid'@'localhost';
+mysql> grant select on nic_billing.* to 'gclid'@'localhost';
+```
+
+
+
+
