@@ -1,0 +1,14 @@
+
+mysql> create ROLE 'gclid_role';
+mysql> grant select on main.tbl_customer TO 'gclid_role';
+mysql> grant select on nic_billing.order TO 'gclid_role';
+
+mysql> SET old_passwords=0;
+mysql> CREATE USER 'gclid'@'localhost' IDENTIFIED BY 'XXXXXXXX';
+mysql> GRANT 'gclid_role' TO 'gclid'@'localhost';
+mysql> SET DEFAULT ROLE gclid_role FOR 'gclid'@'localhost';
+
+
+https://mariadb.com/kb/en/authentication-plugin-mysql_native_password/
+
+

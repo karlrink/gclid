@@ -1,0 +1,15 @@
+
+apt-get install python-mysql.connector
+#config.py
+gclid = dict(
+  dbUser = 'gclid',
+  dbPass = 'XXXXXXXXXXXX',
+  dbSocket = '/var/run/mysqld/mysqld.sock'
+) 
+sudo apt  install awscli 
+aws configure
+#.aws/credentials
+aws_access_key_id = XXXXXXXXXXXXXXXXXXXX
+aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
