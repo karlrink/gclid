@@ -2,6 +2,8 @@
 mysql> create ROLE 'gclid_role';
 mysql> grant select on main.tbl_customer TO 'gclid_role';
 mysql> grant select on nic_billing.order TO 'gclid_role';
+mysql> grant select on nic_billing.order_item TO 'gclid_role';
+mysql> grant select on nic_billing.invoice TO 'gclid_role';
 
 mysql> SET old_passwords=0;
 mysql> CREATE USER 'gclid'@'localhost' IDENTIFIED BY 'XXXXXXXX';

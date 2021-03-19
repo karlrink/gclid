@@ -1,0 +1,12 @@
+
+Error:
+1142 (42000): SELECT command denied to user 'gclid'@'localhost' for table 'order_item'
+
+mysql> grant select on nic_billing.order_item TO 'gclid_role';
+
+Error:
+1142 (42000): SELECT command denied to user 'gclid'@'localhost' for table 'invoice'
+
+mysql> grant select on nic_billing.invoice TO 'gclid_role';
+
+

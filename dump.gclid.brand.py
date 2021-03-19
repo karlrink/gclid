@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+__version__ = "002"
+
 import sys
 sys.dont_write_bytecode = True
 
@@ -45,15 +47,18 @@ def get_results(brand_id):
 
 	#brand_id = '3'
 
-	sql =  "SELECT main.tbl_customer.gclid, nic_billing.order.order_date "
-	sql += "FROM main.tbl_customer INNER JOIN nic_billing.order "
-	sql += "ON nic_billing.order.id_customer = main.tbl_customer.CUSTOMER_ID "
+        sql =  "SELECT main.tbl_customer.gclid, nic_billing.order.order_date "
+        sql += "FROM main.tbl_customer "
+        sql += "INNER JOIN nic_billing.order ON nic_billing.order.id_customer = main.tbl_customer.CUSTOMER_ID "
+        sql += "INNER JOIN nic_billing.order_item ON nic_billing.order.id_order = nic_billing.order_item.id_order "
+        sql += "JOIN nic_billing.invoice ON nic_billing.invoice.id_order_item = nic_billing.order_item.id_order_item "
+        sql += "AND nic_billing.invoice.invoice_type = 'first_invoice' "
 	sql += "WHERE main.tbl_customer.BRAND_ID = '" + str(brand_id) + "' "
-	sql += "AND main.tbl_customer.gclid IS NOT NULL "
-	sql += "AND nic_billing.order.order_status = 'success' "
-	sql += "AND nic_billing.order.order_date >= (CURDATE() - INTERVAL 31 DAY) "
-	sql += "ORDER BY nic_billing.order.order_date ASC "
-	#sql += "LIMIT 5"
+        sql += "AND main.tbl_customer.gclid IS NOT NULL "
+        sql += "AND nic_billing.order.order_status = 'success' "
+        sql += "AND nic_billing.order.order_date >= (CURDATE() - INTERVAL 31 DAY) "
+        sql += "ORDER BY nic_billing.order.order_date ASC;"
+
 
 	cursor = cnx.cursor(buffered=True)
 	try:
@@ -91,5 +96,6 @@ if __name__ == '__main__':
             #print(row)
             #print("{},15-day ELTV adjustment,{:%Y-%m-%d %H:%M:%S} America/Los_Angeles,partner.vertical_type,USD".format(gclid, order_date))
             print("{},15-day ELTV adjustment,{:%Y-%m-%d %H:%M:%S} America/Los_Angeles,,USD".format(gclid, order_date))
+
 
 
