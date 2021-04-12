@@ -1,0 +1,111 @@
+gclid.QA.20210412.txt
+
+#001
+```
+SELECT main.tbl_customer.gclid, nic_billing.order.order_date 
+FROM main.tbl_customer INNER JOIN nic_billing.order 
+ON nic_billing.order.id_customer = main.tbl_customer.CUSTOMER_ID 
+WHERE main.tbl_customer.BRAND_ID = '3' 
+AND main.tbl_customer.gclid IS NOT NULL 
+AND nic_billing.order.order_status = 'success' 
+AND nic_billing.order.order_date >= (CURDATE() - INTERVAL 31 DAY) 
+ORDER BY nic_billing.order.order_date ASC ; 
+```
+
+#002
+```
+SELECT main.tbl_customer.gclid, nic_billing.order.order_date 
+FROM main.tbl_customer 
+INNER JOIN nic_billing.order ON nic_billing.order.id_customer = main.tbl_customer.CUSTOMER_ID 
+INNER JOIN nic_billing.order_item ON nic_billing.order.id_order = nic_billing.order_item.id_order 
+JOIN nic_billing.invoice ON nic_billing.invoice.id_order_item = nic_billing.order_item.id_order_item 
+AND nic_billing.invoice.invoice_type = 'first_invoice' 
+WHERE main.tbl_customer.BRAND_ID = '3'
+AND main.tbl_customer.gclid IS NOT NULL 
+AND nic_billing.order.order_status = 'success' 
+AND nic_billing.order.order_date >= (CURDATE() - INTERVAL 31 DAY) 
+ORDER BY nic_billing.order.order_date ASC ; 
+```
+
+---
+
+#001,
+```
+MariaDB [(none)]> SELECT main.tbl_customer.gclid, nic_billing.order.order_date 
+    -> FROM main.tbl_customer INNER JOIN nic_billing.order 
+    -> ON nic_billing.order.id_customer = main.tbl_customer.CUSTOMER_ID 
+    -> WHERE main.tbl_customer.BRAND_ID = '3' 
+    -> AND main.tbl_customer.gclid IS NOT NULL 
+    -> AND nic_billing.order.order_status = 'success' 
+    -> AND nic_billing.order.order_date >= (CURDATE() - INTERVAL 31 DAY) 
+    -> ORDER BY nic_billing.order.order_date ASC ; 
++----------------------------------------------------------------------------------------------+---------------------+
+| gclid                                                                                        | order_date          |
++----------------------------------------------------------------------------------------------+---------------------+
+| Cj0KCQiAv6yCBhCLARIsABqJTjY9eCJVqKtuhE4ojIQFbJNPiDwIMoZBcAneUBTEbfbEAouMO7WuVpgaArcfEALw_wcB | 2021-03-12 00:28:07 |
+| Cj0KCQiAv6yCBhCLARIsABqJTjY9eCJVqKtuhE4ojIQFbJNPiDwIMoZBcAneUBTEbfbEAouMO7WuVpgaArcfEALw_wcB | 2021-03-12 00:28:36 |
+| EAIaIQobChMImtPQnaqq7wIVAa5iCh07IAseEAEYASAAEgL_ivD_BwE                                      | 2021-03-12 00:29:54 |
+...
+...
+...
+| 4b865ce99a0d1604d9ac3c9d13bc7f0e                                                             | 2021-04-12 11:05:08 |
+| EAIaIQobChMIneSalKX57wIVpecoBR1hoQMHEAEYASAAEgI39_D_BwE                                      | 2021-04-12 11:06:02 |
+| EAIaIQobChMIneSalKX57wIVpecoBR1hoQMHEAEYASAAEgI39_D_BwE                                      | 2021-04-12 11:06:11 |
++----------------------------------------------------------------------------------------------+---------------------+
+26178 rows in set (1.281 sec)
+```
+
+#002,
+```
+MariaDB [(none)]> SELECT main.tbl_customer.gclid, nic_billing.order.order_date 
+    -> FROM main.tbl_customer 
+    -> INNER JOIN nic_billing.order ON nic_billing.order.id_customer = main.tbl_customer.CUSTOMER_ID 
+    -> INNER JOIN nic_billing.order_item ON nic_billing.order.id_order = nic_billing.order_item.id_order 
+    -> JOIN nic_billing.invoice ON nic_billing.invoice.id_order_item = nic_billing.order_item.id_order_item 
+    -> AND nic_billing.invoice.invoice_type = 'first_invoice' 
+    -> WHERE main.tbl_customer.BRAND_ID = '3'
+    -> AND main.tbl_customer.gclid IS NOT NULL 
+    -> AND nic_billing.order.order_status = 'success' 
+    -> AND nic_billing.order.order_date >= (CURDATE() - INTERVAL 31 DAY) 
+    -> ORDER BY nic_billing.order.order_date ASC ; 
++----------------------------------------------------------------------------------------------+---------------------+
+| gclid                                                                                        | order_date          |
++----------------------------------------------------------------------------------------------+---------------------+
+| Cj0KCQiAv6yCBhCLARIsABqJTjY9eCJVqKtuhE4ojIQFbJNPiDwIMoZBcAneUBTEbfbEAouMO7WuVpgaArcfEALw_wcB | 2021-03-12 00:28:07 |
+| Cj0KCQiAv6yCBhCLARIsABqJTjY9eCJVqKtuhE4ojIQFbJNPiDwIMoZBcAneUBTEbfbEAouMO7WuVpgaArcfEALw_wcB | 2021-03-12 00:28:36 |
+| EAIaIQobChMImtPQnaqq7wIVAa5iCh07IAseEAEYASAAEgL_ivD_BwE                                      | 2021-03-12 00:29:54 |
+...
+...
+...
+| Cj0KCQjw38-DBhDpARIsADJ3kjko_vJF72-kOH_dMyQaO8EMGoeaoEPB8jNk3voUCqh-Nr96i5iUJaEaAjTFEALw_wcB | 2021-04-12 10:53:26 |
+| Cj0KCQjw38-DBhDpARIsADJ3kjkyjemkpF4Coy1gUFXOB-VERC5ElMDWJ2difFtYSWV64swgQ6uLR3saAt8DEALw_wcB | 2021-04-12 10:56:50 |
+| EAIaIQobChMIneSalKX57wIVpecoBR1hoQMHEAEYASAAEgI39_D_BwE                                      | 2021-04-12 11:06:11 |
++----------------------------------------------------------------------------------------------+---------------------+
+13607 rows in set (1.762 sec)
+
+
+#---
+
+./dump.gclid.brand.py.v1 3 >out.v1.3.csv 
+./dump.gclid.brand.py.v2 3 >out.v2.3.csv
+
+karl.rink@db01repl2:~/qa.gclid$ head -4 out.v1.3.csv
+Google Click ID,Conversion Name,Conversion Time,Conversion Value,Conversion Currency
+Cj0KCQiAv6yCBhCLARIsABqJTjY9eCJVqKtuhE4ojIQFbJNPiDwIMoZBcAneUBTEbfbEAouMO7WuVpgaArcfEALw_wcB,15-day ELTV adjustment,2021-03-12 00:28:07 America/Los_Angeles,,USD
+Cj0KCQiAv6yCBhCLARIsABqJTjY9eCJVqKtuhE4ojIQFbJNPiDwIMoZBcAneUBTEbfbEAouMO7WuVpgaArcfEALw_wcB,15-day ELTV adjustment,2021-03-12 00:28:36 America/Los_Angeles,,USD
+EAIaIQobChMImtPQnaqq7wIVAa5iCh07IAseEAEYASAAEgL_ivD_BwE,15-day ELTV adjustment,2021-03-12 00:29:54 America/Los_Angeles,,USD
+karl.rink@db01repl2:~/qa.gclid$ head -4 out.v2.3.csv
+Google Click ID,Conversion Name,Conversion Time,Conversion Value,Conversion Currency
+Cj0KCQiAv6yCBhCLARIsABqJTjY9eCJVqKtuhE4ojIQFbJNPiDwIMoZBcAneUBTEbfbEAouMO7WuVpgaArcfEALw_wcB,15-day ELTV adjustment,2021-03-12 00:28:07 America/Los_Angeles,,USD
+Cj0KCQiAv6yCBhCLARIsABqJTjY9eCJVqKtuhE4ojIQFbJNPiDwIMoZBcAneUBTEbfbEAouMO7WuVpgaArcfEALw_wcB,15-day ELTV adjustment,2021-03-12 00:28:36 America/Los_Angeles,,USD
+EAIaIQobChMImtPQnaqq7wIVAa5iCh07IAseEAEYASAAEgL_ivD_BwE,15-day ELTV adjustment,2021-03-12 00:29:54 America/Los_Angeles,,USD
+karl.rink@db01repl2:~/qa.gclid$ wc -l out.v1.3.csv
+26193 out.v1.3.csv
+karl.rink@db01repl2:~/qa.gclid$ wc -l out.v2.3.csv
+13614 out.v2.3.csv
+karl.rink@db01repl2:~/qa.gclid$ 
+
+
+
+
+
