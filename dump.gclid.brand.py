@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-__version__ = "002"
+__version__ = "003"
 
 import sys
 sys.dont_write_bytecode = True
@@ -57,7 +57,7 @@ def get_results(brand_id):
     sql += "WHERE main.tbl_customer.BRAND_ID = '" + str(brand_id) + "' "
     sql += "AND main.tbl_customer.gclid IS NOT NULL "
     sql += "AND nic_billing.order.order_status = 'success' "
-    sql += "AND nic_billing.order.order_date >= (CURDATE() - INTERVAL 31 DAY) "
+    sql += "AND nic_billing.order.order_date >= (CURDATE() - INTERVAL 61 DAY) "
     sql += "ORDER BY nic_billing.order.order_date ASC;"
 
 
